@@ -1,15 +1,11 @@
-FROM python:3.7
+FROM python:3.8
 
-ENV PYTHONUNBUFFERED 1
+WORKDIR /app
 
-RUN mkdir /twilio
-WORKDIR /twilio
+COPY requirements.txt ./
 
-COPY setup.py .
-COPY requirements.txt .
-COPY README.md .
-COPY twilio ./twilio
-COPY tests ./tests
+RUN pip install -r requirements.txt
 
-RUN pip install .
-RUN pip install -r tests/requirements.txt
+COPY . ./
+
+CMD ["python", "app.py"]
